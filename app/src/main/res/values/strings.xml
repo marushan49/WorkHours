@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WorkHours</string>
+    <string name="tab_text_1">FullTime Calc</string>
+    <string name="tab_text_2">Monthly Hours</string>
+</resources>
