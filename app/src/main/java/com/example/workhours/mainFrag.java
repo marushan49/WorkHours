@@ -5,10 +5,11 @@ import android.os.Bundle;
 
 import com.example.workhours.ui.main.ExampleDialog;
 import com.example.workhours.ui.main.FragmentHelpingMethods;
+
+import java.nio.channels.SelectableChannel;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,6 +17,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.example.workhours.ui.main.SectionsPagerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class mainFrag extends FragmentHelpingMethods{
@@ -59,6 +66,7 @@ public class mainFrag extends FragmentHelpingMethods{
         hours  = view.findViewById(R.id.hours);
 
         save();
+
 
         final CheckBox thursdayCH = view.findViewById(R.id.checkBox3);
         thursdayCH.setOnClickListener(views -> {

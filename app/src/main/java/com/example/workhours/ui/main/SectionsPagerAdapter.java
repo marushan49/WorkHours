@@ -6,6 +6,8 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.example.workhours.PauseZeitenFragment;
 import com.example.workhours.R;
 import com.example.workhours.fragment2;
 import com.example.workhours.mainFrag;
@@ -17,7 +19,7 @@ import com.example.workhours.mainFrag;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[] {R.string.tab_text_1, R.string.tab_text_2};
+    private static final int[] TAB_TITLES = new int[] {R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -36,6 +38,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 fragment = new fragment2();
                 break;
+            case 2:
+                fragment = new PauseZeitenFragment();
+                break;
         }
         return fragment;
     }
@@ -48,7 +53,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
-        return 2;
+        return 3;
     }
 }

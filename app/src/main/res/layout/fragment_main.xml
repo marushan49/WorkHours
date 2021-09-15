@@ -154,9 +154,22 @@
                 android:text="Start"
                 app:layout_constraintBottom_toTopOf="@+id/summe"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.701"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/friday"
-                app:layout_constraintVertical_bias="0.674" />
+                app:layout_constraintVertical_bias="0.694" />
+
+            <Button
+                android:id="@+id/pauseButton"
+                android:layout_width="99dp"
+                android:layout_height="76dp"
+                android:text="Set Pause"
+                app:layout_constraintBottom_toTopOf="@+id/summe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.282"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/friday"
+                app:layout_constraintVertical_bias="0.694" />
 
             <CheckBox
                 android:id="@+id/checkBox3"
