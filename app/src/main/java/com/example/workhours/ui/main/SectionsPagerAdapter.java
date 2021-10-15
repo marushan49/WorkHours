@@ -7,9 +7,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.workhours.PauseZeitenFragment;
 import com.example.workhours.R;
-import com.example.workhours.fragment2;
+import com.example.workhours.breaks.fragmentPause;
+import com.example.workhours.breaks.fragmentPauseNew;
+import com.example.workhours.frag2Activity;
 import com.example.workhours.mainFrag;
 
 /**
@@ -19,7 +20,7 @@ import com.example.workhours.mainFrag;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[] {R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+    private static final int[] TAB_TITLES = new int[] {R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -36,10 +37,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new mainFrag();
                 break;
             case 1:
-                fragment = new fragment2();
+                fragment = new frag2Activity();
                 break;
             case 2:
-                fragment = new PauseZeitenFragment();
+                fragment = new fragmentPause();
+                break;
+            case 3:
+                fragment = new fragmentPauseNew();
                 break;
         }
         return fragment;
@@ -53,6 +57,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 }

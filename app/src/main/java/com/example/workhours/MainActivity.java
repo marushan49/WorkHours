@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 
 import com.example.workhours.ui.main.SectionsPagerAdapter;
 import com.example.workhours.databinding.ActivityMainBinding;
@@ -37,5 +38,6 @@ private ActivityMainBinding binding;
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
+
     }
 }

@@ -75,7 +75,7 @@ public class mainFrag extends FragmentHelpingMethods{
                 thursday.setText("Wird berechnet...");
             }else {
                 thursday.setEnabled(true);
-                thursday.setText("");
+                thursday.setText("0:00");
             }
         });
 
@@ -86,7 +86,7 @@ public class mainFrag extends FragmentHelpingMethods{
                 friday.setText("Wird berechnet...");
             }else{
                 friday.setEnabled(true);
-                friday.setText("");
+                friday.setText("0:00");
             }
         });
 
@@ -132,7 +132,7 @@ public class mainFrag extends FragmentHelpingMethods{
                         long minutes = mondayHours+tuesdayHours+wednesdayHours;
                         long l = weekhours - minutes;
                         if(minutes > weekhours){
-                            ExampleDialog exmplDialog = new ExampleDialog("Fehler", "Summe der eingetragenen Stunden haben schon " + parseTime(weekhours) + " erreicht/überstiegen", "Ok");
+                            ExampleDialog exmplDialog = new ExampleDialog("Fehler", "Summe: " + parseTime(minutes) + " der eingetragenen Stunden haben schon " + parseTime(weekhours) + " erreicht/überstiegen", "Ok");
                             exmplDialog.show(getActivity().getSupportFragmentManager(), "dialog");
                             return;
                         }
@@ -150,7 +150,7 @@ public class mainFrag extends FragmentHelpingMethods{
                         long mtwt = mondayHours+tuesdayHours+wednesdayHours+thursdayHours;
                         long weiter = weekhours - mtwt;
                         if(mtwt > weekhours){
-                            ExampleDialog exmplDialog = new ExampleDialog("Fehler", "Summe der eingetragenen Stunden haben schon " + parseTime(weekhours) + " erreicht/überstiegen", "Ok");
+                            ExampleDialog exmplDialog = new ExampleDialog("Fehler", "Summe: " + parseTime(mtwt) + " der eingetragenen Stunden haben schon " + parseTime(weekhours) + " erreicht/überstiegen", "Ok");
                             exmplDialog.show(getActivity().getSupportFragmentManager(), "dialog");
                             return;
                         }
@@ -166,7 +166,7 @@ public class mainFrag extends FragmentHelpingMethods{
                         long weiter = weekhours - mtwt;
 
                         if(mtwt > weekhours){
-                            ExampleDialog exmplDialog = new ExampleDialog("Fehler", "Summe der eingetragenen Stunden haben schon " + parseTime(weekhours) + " erreicht/überstiegen", "Ok");
+                            ExampleDialog exmplDialog = new ExampleDialog("Fehler", "Summe: " + parseTime(mtwt) + " der eingetragenen Stunden haben schon " + parseTime(weekhours) + " erreicht/überstiegen", "Ok");
                             exmplDialog.show(getActivity().getSupportFragmentManager(), "dialog");
                             return;
                         }

@@ -26,6 +26,9 @@ public class FragmentHelpingMethods extends Fragment {
         String[] split = hourFormat.split(":");
 
         try {
+            if(hourFormat.equals(""))
+                return 0;
+
             if(Double.parseDouble(split[1]) >= 60 || Double.parseDouble(split[0]) < 0 || Double.parseDouble(split[1])  < 0 || (Double.parseDouble(split[0])  >= 24 && !ausnahme)){
                 openFehlerDialog();
                 return -1;
