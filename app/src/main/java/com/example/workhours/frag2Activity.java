@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -90,6 +91,7 @@ public class frag2Activity extends FragmentHelpingMethods {
                     double test = round(lohn*verdienst, 2);
 
                     sums.setText(String.format("%s + %s + %s +  %s = %s \n Lohn: %s", mainFrag.parseTime(week1min), mainFrag.parseTime(week2min), mainFrag.parseTime(week3min), mainFrag.parseTime(week4min), mainFrag.parseTime(sum), test));
+                    berechnen.onEditorAction(EditorInfo.IME_ACTION_DONE);
                 });
     }
 

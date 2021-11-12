@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -183,6 +184,7 @@ public class mainFrag extends FragmentHelpingMethods{
                             parseTime(thursdayHours), parseTime(fridayHours), parseTime(sum)));
 
                     makeToast("Pause beträgt: " + p + " Minuten", 1);
+                    berechnen.onEditorAction(EditorInfo.IME_ACTION_DONE);
                 });
     }
 

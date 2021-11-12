@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -61,6 +62,7 @@ public class fragmentPause extends FragmentHelpingMethods {
             added.setText(String.format("Pause addiert: %s", parseTime(end)));
             ausgabe.setText(String.format("Eingegebene Zeit: %s \n Pause: %s min ", pause.getText(), p));
 
+            pause.onEditorAction(EditorInfo.IME_ACTION_DONE);
         });
 
         final TextView substr = view.findViewById(R.id.substract);
@@ -75,7 +77,7 @@ public class fragmentPause extends FragmentHelpingMethods {
                 ClipData clip = ClipData.newPlainText("substracted", clipboardVal);
                 clipboard.setPrimaryClip(clip);
 
-                makeToast("Pause: " + clipboardVal + " wurde ins Clipboard kopiert", 1);
+                makeToast(clipboardVal + " wurde ins Clipboard kopiert", 1);
             }
             return true;
         });
@@ -88,7 +90,7 @@ public class fragmentPause extends FragmentHelpingMethods {
                     ClipData clip = ClipData.newPlainText("added", clipboardVal);
                     clipboard.setPrimaryClip(clip);
 
-                    makeToast("Pause: " + clipboardVal + " wurde ins Clipboard kopiert", 1);
+                    makeToast(clipboardVal + " wurde ins Clipboard kopiert", 1);
                 }
                 return true;
         });
