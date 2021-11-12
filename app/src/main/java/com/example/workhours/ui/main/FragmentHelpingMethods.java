@@ -11,10 +11,14 @@ public class FragmentHelpingMethods extends Fragment {
 
     @SuppressLint("DefaultLocale")
     public static String parseTime(long minutes) {
-        return String.format("%02d:%02d",
-                TimeUnit.MINUTES.toHours(minutes),
-                TimeUnit.MINUTES.toMinutes(minutes) - TimeUnit.HOURS.toMinutes(
-                        TimeUnit.MINUTES.toHours(minutes)));
+        if(minutes > 0) {
+            return String.format("%02d:%02d",
+                    TimeUnit.MINUTES.toHours(minutes),
+                    TimeUnit.MINUTES.toMinutes(minutes) - TimeUnit.HOURS.toMinutes(
+                            TimeUnit.MINUTES.toHours(minutes)));
+        }else{
+            return "00:00";
+        }
     }
 
     public boolean isEmptyET(EditText et){
@@ -29,8 +33,11 @@ public class FragmentHelpingMethods extends Fragment {
             if(hourFormat.equals(""))
                 return 0;
 
-            if(Double.parseDouble(split[1]) >= 60 || Double.parseDouble(split[0]) < 0 || Double.parseDouble(split[1])  < 0 || (Double.parseDouble(split[0])  >= 24 && !ausnahme)){
-                openFehlerDialog();
+            if(Double.parseDouble(split[1]) >= 60 ||
+                    Double.parseDouble(split[0]) < 0 ||
+                    Double.parseDouble(split[1])  < 0 ||
+                    (Double.parseDouble(split[0])  >= 24 && !ausnahme)){
+                messageBox();
                 return -1;
             }
             minutes += Double.parseDouble(split[0])*60;
@@ -52,8 +59,13 @@ public class FragmentHelpingMethods extends Fragment {
         return text.toString();
     }
 
-    public void openFehlerDialog(){
+    public void messageBox(){
         ExampleDialog exmplDialog = new ExampleDialog("Fehler", "Eingabe ist ungültig!", "Abbrechen");
+        exmplDialog.show(getActivity().getSupportFragmentManager(), "dialog");
+    }
+
+    public void messageBox(String mesg){
+        ExampleDialog exmplDialog = new ExampleDialog("Fehler", mesg, "Abbrechen");
         exmplDialog.show(getActivity().getSupportFragmentManager(), "dialog");
     }
 

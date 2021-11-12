@@ -1,5 +1,9 @@
 package com.example.workhours.breaks;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,18 +11,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import android.content.ClipboardManager;
 
 import com.example.workhours.R;
 import com.example.workhours.ui.main.FragmentHelpingMethods;
 
+import org.w3c.dom.Text;
+
 public class fragmentPause extends FragmentHelpingMethods {
 
-    EditText firstVon,firstBis,firstPauseZeit,secondVon,secondBis,secondPauseZeit,thirdVon,thirdBis,thirdPauseZeit,fifthVon,fifthBis,fifthPauseZeit,fourthVon,fourthBis,fourthPauseZeit;
-
+    private long pauseOut = 0;
+    private String clipboardVal;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,38 +38,95 @@ public class fragmentPause extends FragmentHelpingMethods {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        firstVon  = view.findViewById(R.id.firstVon);
-        firstBis  = view.findViewById(R.id.firstBis);
-        firstPauseZeit  = view.findViewById(R.id.firstPauseZeit);
-        secondVon  = view.findViewById(R.id.secondVon);
-        secondBis  = view.findViewById(R.id.secondBis);
-        secondPauseZeit  = view.findViewById(R.id.secondPauseZeit);
-        thirdVon  = view.findViewById(R.id.thirdVon);
-        thirdBis  = view.findViewById(R.id.firstBis);
-        thirdPauseZeit  = view.findViewById(R.id.firstPauseZeit);
-        fourthVon  = view.findViewById(R.id.firstVon);
-        fourthBis  = view.findViewById(R.id.firstBis);
-        fourthPauseZeit  = view.findViewById(R.id.firstPauseZeit);
-        fifthVon  = view.findViewById(R.id.firstVon);
-        fifthBis  = view.findViewById(R.id.firstBis);
-        fifthPauseZeit  = view.findViewById(R.id.firstPauseZeit);
+        save();
 
-        final EditText bezeichung = view.findViewById(R.id.bezeichnung);
-        bezeichung.setOnClickListener(views -> {
-            if (bezeichung.getText().toString().equals("Bezeichnung")){
-                bezeichung.getText().clear();
+        final EditText pause = view.findViewById(R.id.editTextTime5);
+        final TextView ausgabe = view.findViewById(R.id.BreakAusgabe);
+
+        final Button calcBreak = view.findViewById(R.id.button3);
+        calcBreak.setOnClickListener(views -> {
+            if(!isEmptyET(pause)){
+                checkInput(pause);
+                pauseOut =  getTime(pause.getText().toString(), true);
             }
+
+            long end = IstZeit(pauseOut);
+            long p = end - pauseOut;
+            long actualTime = pauseOut-p;
+
+            final TextView substr = view.findViewById(R.id.substract);
+            final TextView added = view.findViewById(R.id.added);
+
+            substr.setText(String.format("Pause abgezogen: %s" , parseTime(actualTime)));
+            added.setText(String.format("Pause addiert: %s", parseTime(end)));
+            ausgabe.setText(String.format("Eingegebene Zeit: %s \n Pause: &s min ", pause.getText(), p));
+
         });
 
-        final Button add = view.findViewById(R.id.add);
-        add.setOnClickListener(views -> {
+        final TextView substr = view.findViewById(R.id.substract);
+        substr.setOnLongClickListener(views -> {
+            if (pauseOut != 0) {
+                long end = IstZeit(pauseOut);
+                long p = end - pauseOut;
+                long actualTime = pauseOut - p;
 
+                clipboardVal = parseTime(actualTime);
+                ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("substracted", clipboardVal);
+                clipboard.setPrimaryClip(clip);
+            }
+            return true;
         });
 
-        final Button delete = view.findViewById(R.id.delete);
-        delete.setOnClickListener(views -> {
-
+        final TextView added = view.findViewById(R.id.added);
+        added.setOnLongClickListener(views -> {
+                if (pauseOut != 0) {
+                    clipboardVal = parseTime(pauseOut);
+                    ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("added", clipboardVal);
+                    clipboard.setPrimaryClip(clip);
+                }
+                return true;
         });
+    }
+
+    public long IstZeit(long sollzeit){
+        long pause = 0;
+        if (sollzeit <= 120) {
+            pause = 0;
+        } else if (sollzeit <= 134) {
+            pause = sollzeit - 120;
+        } else if (sollzeit <= 285) {
+            pause = 15;
+        } else if (sollzeit <= 299) {
+            pause = sollzeit - 30;
+        } else if (sollzeit <= 390) {
+            pause = 30;
+        } else if (sollzeit <= 404) {
+            pause = sollzeit - 360;
+        } else {
+            pause = 45;
+        }
+        return sollzeit + pause;
+    }
+
+    private void save(){
+        SharedPreferences mySPR = this.getActivity().getSharedPreferences("MyFile", 0);
+        final EditText pause = getView().findViewById(R.id.editTextTime5);
+        pause.setText(mySPR.getString("pauseCalc","HH:mm"));
+    }
+
+    public void onStop(){
+        super.onStop();
+
+        SharedPreferences mySPR = this.getActivity().getSharedPreferences("MyFile",0);
+
+        SharedPreferences.Editor editor = mySPR.edit();
+        final EditText pause = getView().findViewById(R.id.editTextTime5);
+        editor.putString("pauseCalc", pause.getText().toString());
+
+        editor.commit();
 
     }
+
 }
