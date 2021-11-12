@@ -59,7 +59,7 @@ public class fragmentPause extends FragmentHelpingMethods {
 
             substr.setText(String.format("Pause abgezogen: %s" , parseTime(actualTime)));
             added.setText(String.format("Pause addiert: %s", parseTime(end)));
-            ausgabe.setText(String.format("Eingegebene Zeit: %s \n Pause: &s min ", pause.getText(), p));
+            ausgabe.setText(String.format("Eingegebene Zeit: %s \n Pause: %s min ", pause.getText(), p));
 
         });
 
@@ -74,6 +74,8 @@ public class fragmentPause extends FragmentHelpingMethods {
                 ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("substracted", clipboardVal);
                 clipboard.setPrimaryClip(clip);
+
+                makeToast("Pause: " + clipboardVal + " wurde ins Clipboard kopiert", 1);
             }
             return true;
         });
@@ -85,6 +87,8 @@ public class fragmentPause extends FragmentHelpingMethods {
                     ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("added", clipboardVal);
                     clipboard.setPrimaryClip(clip);
+
+                    makeToast("Pause: " + clipboardVal + " wurde ins Clipboard kopiert", 1);
                 }
                 return true;
         });
